@@ -5,6 +5,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 class FirebaseServices {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  CollectionReference banners = FirebaseFirestore.instance.collection('Slider');
 
   Future<QuerySnapshot> getAdminCredentials() async {
     var result = FirebaseFirestore.instance.collection('Admin').get();

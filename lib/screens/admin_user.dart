@@ -1,25 +1,17 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin_scaffold/admin_scaffold.dart';
 import 'package:indian_zaika_admin/components/sidebar.dart';
 import 'package:indian_zaika_admin/constants/constants.dart';
-import 'package:indian_zaika_admin/screens/admin_user.dart';
-import 'package:indian_zaika_admin/screens/banners_screen.dart';
-import 'package:indian_zaika_admin/screens/categories_screen.dart';
-import 'package:indian_zaika_admin/screens/login_screen.dart';
-import 'package:indian_zaika_admin/screens/notification_screen.dart';
-import 'package:indian_zaika_admin/screens/order_screen.dart';
-import 'package:indian_zaika_admin/screens/settings_screen.dart';
 
-class HomeScreen extends StatefulWidget {
-  static const String id = 'home-screen';
-  const HomeScreen({Key? key}) : super(key: key);
+class AdminUserScreen extends StatefulWidget {
+  static const String id = 'adminuser-screen';
+  const AdminUserScreen({Key? key}) : super(key: key);
 
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _AdminUserScreenState createState() => _AdminUserScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _AdminUserScreenState extends State<AdminUserScreen> {
   @override
   Widget build(BuildContext context) {
     SidebarWidget _sideBar = SidebarWidget();
@@ -35,13 +27,13 @@ class _HomeScreenState extends State<HomeScreen> {
           style: kTextStyleHead1,
         ),
       ),
-      sideBar: _sideBar.sideBarMenues(context, HomeScreen.id),
+      sideBar: _sideBar.sideBarMenues(context, AdminUserScreen.id),
       body: SingleChildScrollView(
         child: Container(
           alignment: Alignment.topLeft,
           padding: const EdgeInsets.all(10),
           child: const Text(
-            'Dashboard',
+            'Admin Users',
             style: TextStyle(
               fontWeight: FontWeight.w700,
               fontSize: 36,

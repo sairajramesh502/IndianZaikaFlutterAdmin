@@ -19,6 +19,11 @@ const kHintText = TextStyle(
   color: Color(0xFFD4CDCD),
   fontWeight: FontWeight.w600,
 );
+const kButtonText = TextStyle(
+  fontSize: 13,
+  color: Colors.white,
+  fontWeight: FontWeight.w600,
+);
 
 const kLabelStyle = TextStyle(
     color: Colors.white,
