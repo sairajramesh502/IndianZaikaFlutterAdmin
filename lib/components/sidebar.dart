@@ -8,6 +8,7 @@ import 'package:indian_zaika_admin/screens/login_screen.dart';
 import 'package:indian_zaika_admin/screens/notification_screen.dart';
 import 'package:indian_zaika_admin/screens/order_screen.dart';
 import 'package:indian_zaika_admin/screens/settings_screen.dart';
+import 'package:indian_zaika_admin/screens/vender_manage.dart';
 
 class SidebarWidget {
   sideBarMenues(context, selectedRoute) {
@@ -24,6 +25,11 @@ class SidebarWidget {
         MenuItem(
           title: 'Banners',
           route: BannerScreen.id,
+          icon: Icons.photo_size_select_actual_outlined,
+        ),
+        MenuItem(
+          title: 'Manage Restaurants',
+          route: ManageVendors.id,
           icon: Icons.photo_size_select_actual_outlined,
         ),
         MenuItem(

@@ -48,21 +48,24 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.pushReplacementNamed(context, HomeScreen.id);
                 return;
               } else {
-                _showMyDialog(
+                _firebaseServices.showMyDialog(
+                  context: context,
                   title: 'Login Failed',
                   message: 'Login Failed',
                 );
               }
             } else {
               progressDialog.dismiss();
-              _showMyDialog(
+              _firebaseServices.showMyDialog(
+                context: context,
                 title: 'Invalid Password',
                 message: 'The Password You have enterred is Incorrect',
               );
             }
           } else {
             progressDialog.dismiss();
-            _showMyDialog(
+            _firebaseServices.showMyDialog(
+              context: context,
               title: 'Invalid UserName',
               message: 'The UserName You have enterred is Incorrect',
             );
@@ -215,33 +218,6 @@ class _MyHomePageState extends State<MyHomePage> {
           );
         },
       ),
-    );
-  }
-
-  Future<void> _showMyDialog({title, message}) async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(title),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: <Widget>[
-                Text(message),
-              ],
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('OK'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
     );
   }
 }

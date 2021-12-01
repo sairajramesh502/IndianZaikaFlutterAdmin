@@ -52,7 +52,14 @@ class _BannerWidgetState extends State<BannerWidget> {
                   child: CircleAvatar(
                     backgroundColor: Colors.white,
                     child: IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        _firebaseServices.confirmDeleteDialog(
+                          context: context,
+                          message: 'Are You Sure You Want To Delete ?',
+                          title: 'Delete Banner',
+                          id: document.id,
+                        );
+                      },
                       icon: const Icon(
                         Icons.delete,
                         color: Colors.red,

@@ -1,29 +1,24 @@
-// ignore_for_file: unused_element, dead_code, avoid_web_libr
 import 'package:flutter/material.dart';
 import 'package:flutter_admin_scaffold/admin_scaffold.dart';
 import 'package:indian_zaika_admin/components/sidebar.dart';
 import 'package:indian_zaika_admin/constants/constants.dart';
-import 'package:indian_zaika_admin/services/firebase_services.dart';
-import 'package:indian_zaika_admin/widgets/banner_upload.dart';
-import 'package:indian_zaika_admin/widgets/banners.dart';
+import 'package:indian_zaika_admin/screens/banners_screen.dart';
+import 'package:indian_zaika_admin/widgets/vendor_datatable_widget.dart';
+import 'package:indian_zaika_admin/widgets/vendor_filter_widget.dart';
 
-class BannerScreen extends StatefulWidget {
-  static const String id = 'banner-screen';
-  const BannerScreen({Key? key}) : super(key: key);
+class ManageVendors extends StatefulWidget {
+  static const String id = 'vendor-screen';
+  const ManageVendors({Key? key}) : super(key: key);
 
   @override
-  _BannerScreenState createState() => _BannerScreenState();
+  _ManageVendorsState createState() => _ManageVendorsState();
 }
 
-class _BannerScreenState extends State<BannerScreen> {
-  FirebaseServices _services = FirebaseServices();
-  final _scaffoldKey = GlobalKey<ScaffoldState>();
+class _ManageVendorsState extends State<ManageVendors> {
   SidebarWidget _sideBar = SidebarWidget();
-
   @override
   Widget build(BuildContext context) {
     return AdminScaffold(
-      key: _scaffoldKey,
       backgroundColor: Colors.white,
       appBar: AppBar(
         iconTheme: const IconThemeData(
@@ -35,8 +30,9 @@ class _BannerScreenState extends State<BannerScreen> {
           style: kTextStyleHead1,
         ),
       ),
-      sideBar: _sideBar.sideBarMenues(context, BannerScreen.id),
+      sideBar: _sideBar.sideBarMenues(context, ManageVendors.id),
       body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
         child: Container(
           alignment: Alignment.topLeft,
           padding: const EdgeInsets.all(10),
@@ -44,23 +40,26 @@ class _BannerScreenState extends State<BannerScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: const [
               Text(
-                'Banner Screen',
+                'Manage Restaurants',
                 style: TextStyle(
                   fontWeight: FontWeight.w700,
                   fontSize: 36,
                 ),
               ),
               Text(
-                'Add/Delete Home Screen Offers Banner Images',
+                'Manage All restaurants Activities',
                 style: TextStyle(
                   fontWeight: FontWeight.w700,
                   fontSize: 18,
                 ),
               ),
               Divider(thickness: 5),
-              BannerWidget(),
+              VendorFilterWidget(),
               Divider(thickness: 5),
-              BannerUploadWidget(),
+              SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: RestaurantDataTable()),
+              Divider(thickness: 5),
             ],
           ),
         ),

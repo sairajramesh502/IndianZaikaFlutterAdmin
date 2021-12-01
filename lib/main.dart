@@ -9,6 +9,7 @@ import 'package:indian_zaika_admin/screens/login_screen.dart';
 import 'package:indian_zaika_admin/screens/notification_screen.dart';
 import 'package:indian_zaika_admin/screens/order_screen.dart';
 import 'package:indian_zaika_admin/screens/settings_screen.dart';
+import 'package:indian_zaika_admin/screens/vender_manage.dart';
 
 void main() {
   if (fb.apps.isEmpty) {
@@ -29,6 +30,7 @@ class MyCustomScrollBehavior extends MaterialScrollBehavior {
   Set<PointerDeviceKind> get dragDevices => {
         PointerDeviceKind.touch,
         PointerDeviceKind.mouse,
+        PointerDeviceKind.unknown,
       };
 }
 
@@ -55,6 +57,7 @@ class MyApp extends StatelessWidget {
           CategoriesScreen.id: (context) => const CategoriesScreen(),
           SettingsScreen.id: (context) => const SettingsScreen(),
           NotificationScreen.id: (context) => const NotificationScreen(),
+          ManageVendors.id: (context) => const ManageVendors(),
           MyHomePage.id: (context) => const MyHomePage(
                 title: 'Indian Zaika Admin Dashboard',
               ),
