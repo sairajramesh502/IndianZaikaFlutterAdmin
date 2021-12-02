@@ -54,8 +54,6 @@ class _ManageVendorsState extends State<ManageVendors> {
                 ),
               ),
               Divider(thickness: 5),
-              VendorFilterWidget(),
-              Divider(thickness: 5),
               SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: RestaurantDataTable()),

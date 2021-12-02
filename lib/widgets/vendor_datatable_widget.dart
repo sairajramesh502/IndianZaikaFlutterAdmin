@@ -1,5 +1,6 @@
 // ignore_for_file: unused_local_variable
 
+import 'package:chips_choice_null_safety/chips_choice_null_safety.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:indian_zaika_admin/services/firebase_services.dart';
@@ -13,41 +14,75 @@ class RestaurantDataTable extends StatefulWidget {
 
 class _RestaurantDataTableState extends State<RestaurantDataTable> {
   FirebaseServices _services = FirebaseServices();
+
+  int tag = 1;
+  List<String> options = [
+    'News',
+    'Entertainment',
+    'Politics',
+    'Automotive',
+    'Sports',
+    'Education',
+    'Fashion',
+    'Travel',
+    'Food',
+    'Tech',
+    'Science',
+  ];
+
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: _services.restaurants
-          .orderBy('restaurantName', descending: true)
-          .snapshots(),
-      builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          return const Text('Something Went Wrong');
-        }
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-        return Container(
-          child: DataTable(
-            showBottomBorder: true,
-            dataRowHeight: 60,
-            headingRowColor: MaterialStateProperty.all(Colors.grey[200]),
-            columns: const <DataColumn>[
-              DataColumn(label: Text('Active / Inactive')),
-              DataColumn(label: Text('Top Picked')),
-              DataColumn(label: Text('Restaurant Name')),
-              DataColumn(label: Text('Rating')),
-              DataColumn(label: Text('Total Rating')),
-              DataColumn(label: Text('Mobile')),
-              DataColumn(label: Text('Email')),
-              DataColumn(label: Text('View Details')),
-            ],
-            rows: _restaurantDetailsRow(
-                snapshot.data as QuerySnapshot, _services),
+    return Column(
+      children: [
+        ChipsChoice<int>.single(
+          value: tag,
+          onChanged: (val) => setState(() => tag = val),
+          choiceItems: C2Choice.listFrom<int, String>(
+            source: options,
+            value: (i, v) => i,
+            label: (i, v) => v,
           ),
-        );
-      },
+          choiceStyle: const C2ChoiceStyle(
+            color: Colors.red,
+            borderRadius: BorderRadius.all(Radius.circular(5)),
+          ),
+        ),
+        const Divider(thickness: 5),
+        StreamBuilder(
+          stream: _services.restaurants
+              .orderBy('restaurantName', descending: true)
+              .snapshots(),
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return const Text('Something Went Wrong');
+            }
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            return Container(
+              child: DataTable(
+                showBottomBorder: true,
+                dataRowHeight: 60,
+                headingRowColor: MaterialStateProperty.all(Colors.grey[200]),
+                columns: const <DataColumn>[
+                  DataColumn(label: Text('Active / Inactive')),
+                  DataColumn(label: Text('Top Picked')),
+                  DataColumn(label: Text('Restaurant Name')),
+                  DataColumn(label: Text('Rating')),
+                  DataColumn(label: Text('Total Rating')),
+                  DataColumn(label: Text('Mobile')),
+                  DataColumn(label: Text('Email')),
+                  DataColumn(label: Text('View Details')),
+                ],
+                rows: _restaurantDetailsRow(
+                    snapshot.data as QuerySnapshot, _services),
+              ),
+            );
+          },
+        ),
+      ],
     );
   }
 
