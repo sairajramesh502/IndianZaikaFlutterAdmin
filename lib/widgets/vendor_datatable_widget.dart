@@ -3,6 +3,7 @@
 import 'package:chips_choice_null_safety/chips_choice_null_safety.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:indian_zaika_admin/components/restaurant_details_box.dart';
 import 'package:indian_zaika_admin/services/firebase_services.dart';
 
 class RestaurantDataTable extends StatefulWidget {
@@ -15,29 +16,53 @@ class RestaurantDataTable extends StatefulWidget {
 class _RestaurantDataTableState extends State<RestaurantDataTable> {
   FirebaseServices _services = FirebaseServices();
 
+  bool? active = true;
+  bool? isTopPicked = true;
+
+  filter(val) {
+    if (val == 1) {
+      active = true;
+    }
+    if (val == 2) {
+      active = false;
+    }
+    if (val == 1) {
+      isTopPicked = true;
+    }
+    if (val == 0) {
+      active = null;
+      isTopPicked = null;
+    }
+  }
+
   int tag = 1;
   List<String> options = [
-    'News',
-    'Entertainment',
-    'Politics',
-    'Automotive',
-    'Sports',
-    'Education',
-    'Fashion',
-    'Travel',
-    'Food',
-    'Tech',
-    'Science',
+    'All Restaurants',
+    'Active Restaurants',
+    'Unactive Restaurants',
+    'Top Picked',
+    'Top Rated',
   ];
 
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         ChipsChoice<int>.single(
           value: tag,
-          onChanged: (val) => setState(() => tag = val),
+          onChanged: (val) {
+            setState(() {
+              tag = val;
+            });
+            filter(val);
+          },
           choiceItems: C2Choice.listFrom<int, String>(
+            activeStyle: (i, v) {
+              return const C2ChoiceStyle(
+                  brightness: Brightness.dark, color: Color(0xFF272d2f));
+            },
             source: options,
             value: (i, v) => i,
             label: (i, v) => v,
@@ -50,7 +75,8 @@ class _RestaurantDataTableState extends State<RestaurantDataTable> {
         const Divider(thickness: 5),
         StreamBuilder(
           stream: _services.restaurants
-              .orderBy('restaurantName', descending: true)
+              .where('isTopPicked', isEqualTo: isTopPicked)
+              .where('restVerified', isEqualTo: active)
               .snapshots(),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
@@ -138,7 +164,15 @@ class _RestaurantDataTableState extends State<RestaurantDataTable> {
         DataCell(Text((document.data() as dynamic)['mobile'])),
         DataCell(Text((document.data() as dynamic)['email'])),
         DataCell(IconButton(
-            onPressed: () {}, icon: const Icon(Icons.remove_red_eye_outlined))),
+            onPressed: () {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return RestaurantDetailBox(
+                        uid: (document.data() as dynamic)['email']);
+                  });
+            },
+            icon: const Icon(Icons.info_outline))),
       ]);
     }).toList();
     return newList;
