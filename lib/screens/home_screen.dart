@@ -3,13 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_admin_scaffold/admin_scaffold.dart';
 import 'package:indian_zaika_admin/components/sidebar.dart';
 import 'package:indian_zaika_admin/constants/constants.dart';
-import 'package:indian_zaika_admin/screens/admin_user.dart';
-import 'package:indian_zaika_admin/screens/banners_screen.dart';
-import 'package:indian_zaika_admin/screens/categories_screen.dart';
-import 'package:indian_zaika_admin/screens/login_screen.dart';
-import 'package:indian_zaika_admin/screens/notification_screen.dart';
-import 'package:indian_zaika_admin/screens/order_screen.dart';
-import 'package:indian_zaika_admin/screens/settings_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String id = 'home-screen';

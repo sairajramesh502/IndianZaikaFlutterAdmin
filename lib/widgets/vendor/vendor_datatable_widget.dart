@@ -1,9 +1,9 @@
-// ignore_for_file: unused_local_variable
+// ignore_for_file: unused_local_variable, avoid_unnecessary_containers
 
 import 'package:chips_choice_null_safety/chips_choice_null_safety.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:indian_zaika_admin/components/restaurant_details_box.dart';
+import 'package:indian_zaika_admin/widgets/vendor/restaurant_details_box.dart';
 import 'package:indian_zaika_admin/services/firebase_services.dart';
 
 class RestaurantDataTable extends StatefulWidget {
@@ -14,7 +14,7 @@ class RestaurantDataTable extends StatefulWidget {
 }
 
 class _RestaurantDataTableState extends State<RestaurantDataTable> {
-  FirebaseServices _services = FirebaseServices();
+  final FirebaseServices _services = FirebaseServices();
 
   bool? active = true;
   bool? isTopPicked = true;
@@ -22,11 +22,14 @@ class _RestaurantDataTableState extends State<RestaurantDataTable> {
   filter(val) {
     if (val == 1) {
       active = true;
+      isTopPicked = null;
     }
     if (val == 2) {
       active = false;
+      isTopPicked = null;
     }
-    if (val == 1) {
+    if (val == 3) {
+      active = null;
       isTopPicked = true;
     }
     if (val == 0) {

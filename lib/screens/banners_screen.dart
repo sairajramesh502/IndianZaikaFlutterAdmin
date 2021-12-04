@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_admin_scaffold/admin_scaffold.dart';
 import 'package:indian_zaika_admin/components/sidebar.dart';
 import 'package:indian_zaika_admin/constants/constants.dart';
-import 'package:indian_zaika_admin/services/firebase_services.dart';
-import 'package:indian_zaika_admin/widgets/banner_upload.dart';
-import 'package:indian_zaika_admin/widgets/banners.dart';
+import 'package:indian_zaika_admin/widgets/banner/banner_upload.dart';
+import 'package:indian_zaika_admin/widgets/banner/banners.dart';
 
 class BannerScreen extends StatefulWidget {
   static const String id = 'banner-screen';
@@ -16,9 +15,8 @@ class BannerScreen extends StatefulWidget {
 }
 
 class _BannerScreenState extends State<BannerScreen> {
-  FirebaseServices _services = FirebaseServices();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  SidebarWidget _sideBar = SidebarWidget();
+  final SidebarWidget _sideBar = SidebarWidget();
 
   @override
   Widget build(BuildContext context) {

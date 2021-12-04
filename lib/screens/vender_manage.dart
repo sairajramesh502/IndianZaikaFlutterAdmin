@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_admin_scaffold/admin_scaffold.dart';
 import 'package:indian_zaika_admin/components/sidebar.dart';
 import 'package:indian_zaika_admin/constants/constants.dart';
-import 'package:indian_zaika_admin/screens/banners_screen.dart';
-import 'package:indian_zaika_admin/widgets/vendor_datatable_widget.dart';
-import 'package:indian_zaika_admin/widgets/vendor_filter_widget.dart';
+import 'package:indian_zaika_admin/widgets/vendor/vendor_datatable_widget.dart';
 
 class ManageVendors extends StatefulWidget {
   static const String id = 'vendor-screen';
@@ -15,7 +13,7 @@ class ManageVendors extends StatefulWidget {
 }
 
 class _ManageVendorsState extends State<ManageVendors> {
-  SidebarWidget _sideBar = SidebarWidget();
+  final SidebarWidget _sideBar = SidebarWidget();
   @override
   Widget build(BuildContext context) {
     return AdminScaffold(

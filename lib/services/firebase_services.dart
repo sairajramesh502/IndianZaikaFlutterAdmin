@@ -1,7 +1,5 @@
 // ignore_for_file: unused_field
 
-import 'dart:html';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase/firebase.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -12,6 +10,8 @@ class FirebaseServices {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   CollectionReference banners = FirebaseFirestore.instance.collection('Slider');
+  CollectionReference category =
+      FirebaseFirestore.instance.collection('Categories');
   CollectionReference restaurants =
       FirebaseFirestore.instance.collection('Restaurants');
   FirebaseStorage storage = FirebaseStorage.instance;
@@ -21,18 +21,21 @@ class FirebaseServices {
     return result;
   }
 
-  Future<String> uploadBannerImageToDb(url) async {
-    String downloadUrl = await storage.ref(url).getDownloadURL();
+  // Banner
+  Future<String> uploadBannerImageToDb(path) async {
+    Reference ref = FirebaseStorage.instance.ref().child(path);
+    String url = (await ref.getDownloadURL()).toString();
     firestore.collection('Slider').add({
-      'image': downloadUrl,
+      'image': url,
     });
-    return downloadUrl;
+    return url;
   }
 
   deleteBannerImageFormDb(id) async {
     firestore.collection('Slider').doc(id).delete();
   }
 
+  //Vendor
   updateRestaurantData({id, status}) async {
     restaurants.doc(id).update({
       'restVerified': status ? false : true,
@@ -43,6 +46,17 @@ class FirebaseServices {
     restaurants.doc(id).update({
       'isTopPicked': status ? false : true,
     });
+  }
+
+  //Category
+  Future<String> uploadCategoryToDb(path, catName) async {
+    Reference ref = FirebaseStorage.instance.ref().child(path);
+    String url = (await ref.getDownloadURL()).toString();
+    firestore.collection('Categories').doc(catName).set({
+      'image': url,
+      'name': catName,
+    });
+    return url;
   }
 
   Future<void> confirmDeleteDialog({title, message, context, id}) async {

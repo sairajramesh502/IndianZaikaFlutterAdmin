@@ -1,4 +1,6 @@
+// ignore_for_file: avoid_web_libraries_in_flutter, import_of_legacy_library_into_null_safe, avoid_unnecessary_containers, avoid_print
 
+import 'dart:async';
 import 'dart:html';
 
 import 'package:ars_progress_dialog/ars_progress_dialog.dart';
@@ -15,12 +17,11 @@ class BannerUploadWidget extends StatefulWidget {
 }
 
 class _BannerUploadWidgetState extends State<BannerUploadWidget> {
-  FirebaseServices _services = FirebaseServices();
-    var _fileNameTextController = TextEditingController();
+  final FirebaseServices _services = FirebaseServices();
+  final _fileNameTextController = TextEditingController();
   bool visible = false;
   bool _imageSelected = true;
   String? _path;
-  
 
   void uploadImage({required Function(File file) onselected}) {
     FileUploadInputElement uploadInput = FileUploadInputElement()
@@ -42,7 +43,11 @@ class _BannerUploadWidgetState extends State<BannerUploadWidget> {
     uploadImage(onselected: (file) {
       setState(() {
         _fileNameTextController.text = file.name;
-        _imageSelected = false;
+        Timer(const Duration(seconds: 30), () {
+          setState(() {
+            _imageSelected = false;
+          });
+        });
         _path = path;
       });
       fb
@@ -55,7 +60,6 @@ class _BannerUploadWidgetState extends State<BannerUploadWidget> {
 
   @override
   Widget build(BuildContext context) {
-
     ArsProgressDialog progressDialog = ArsProgressDialog(context,
         blur: 2,
         backgroundColor: Colors.amber.withOpacity(.3),
@@ -139,15 +143,14 @@ class _BannerUploadWidgetState extends State<BannerUploadWidget> {
                             _services
                                 .uploadBannerImageToDb(_path)
                                 .then((downloadUrl) {
-                              if (downloadUrl != null) {
-                                progressDialog.dismiss();
-                                _services.showMyDialog(
-                                  title: 'New Banner Image',
-                                  message: 'Saved Banner Image Sucessfully',
-                                  context: context,
-                                );
-                              }
+                              progressDialog.dismiss();
+                              _services.showMyDialog(
+                                title: 'New Banner Image',
+                                message: 'Saved Banner Image Sucessfully',
+                                context: context,
+                              );
                             });
+                            _fileNameTextController.clear();
                           },
                           child: const Text(
                             'Save Image',
@@ -165,7 +168,7 @@ class _BannerUploadWidgetState extends State<BannerUploadWidget> {
               TextButton(
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all<Color>(
-                    Color(0xFF272d2f),
+                    const Color(0xFF272d2f),
                   ),
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(

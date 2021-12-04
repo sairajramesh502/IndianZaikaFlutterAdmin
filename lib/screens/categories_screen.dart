@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_admin_scaffold/admin_scaffold.dart';
 import 'package:indian_zaika_admin/components/sidebar.dart';
 import 'package:indian_zaika_admin/constants/constants.dart';
+import 'package:indian_zaika_admin/widgets/category/category_list_widget.dart';
+import 'package:indian_zaika_admin/widgets/category/category_upload.dart';
 
 class CategoriesScreen extends StatefulWidget {
   static const String id = 'category-screen';
@@ -32,12 +34,29 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
         child: Container(
           alignment: Alignment.topLeft,
           padding: const EdgeInsets.all(10),
-          child: const Text(
-            'CategoriesScreen',
-            style: TextStyle(
-              fontWeight: FontWeight.w700,
-              fontSize: 36,
-            ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: const [
+              Text(
+                'Category Screen',
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 36,
+                ),
+              ),
+              Text(
+                'Add new Categories',
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 18,
+                ),
+              ),
+              Divider(thickness: 5),
+              CategoryList(),
+              Divider(thickness: 5),
+              CategoryUploadWidget(),
+              Divider(thickness: 5),
+            ],
           ),
         ),
       ),

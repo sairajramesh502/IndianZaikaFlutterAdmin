@@ -1,5 +1,3 @@
-// ignore_for_file: import_of_legacy_library_into_null_safe, unused_local_variable, avoid_function_literals_in_foreach_calls, unnecessary_null_comparison
-
 import 'package:ars_progress_dialog/ars_progress_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -44,16 +42,9 @@ class _MyHomePageState extends State<MyHomePage> {
               UserCredential userCredential =
                   await FirebaseAuth.instance.signInAnonymously();
               progressDialog.dismiss();
-              if (userCredential.user!.uid != null) {
-                Navigator.pushReplacementNamed(context, HomeScreen.id);
-                return;
-              } else {
-                _firebaseServices.showMyDialog(
-                  context: context,
-                  title: 'Login Failed',
-                  message: 'Login Failed',
-                );
-              }
+
+              Navigator.pushReplacementNamed(context, HomeScreen.id);
+              return;
             } else {
               progressDialog.dismiss();
               _firebaseServices.showMyDialog(

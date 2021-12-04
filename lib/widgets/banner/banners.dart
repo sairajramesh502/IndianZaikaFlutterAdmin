@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:indian_zaika_admin/services/firebase_services.dart';
@@ -17,20 +19,20 @@ class _BannerWidgetState extends State<BannerWidget> {
       stream: _firebaseServices.banners.snapshots(),
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasError) {
-          return Text('Something went wrong');
+          return const Text('Something went wrong');
         }
 
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         }
 
-        return Container(
+        return SizedBox(
           width: MediaQuery.of(context).size.width,
           height: 300,
           child: ListView(
-            physics: AlwaysScrollableScrollPhysics(),
+            physics: const AlwaysScrollableScrollPhysics(),
             scrollDirection: Axis.horizontal,
             children: snapshot.data!.docs.map((DocumentSnapshot document) {
               Map<String, dynamic> data =

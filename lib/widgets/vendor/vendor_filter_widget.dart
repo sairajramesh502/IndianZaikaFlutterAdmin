@@ -12,7 +12,7 @@ class _VendorFilterWidgetState extends State<VendorFilterWidget> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(20.0),
-      child: Container(
+      child: SizedBox(
         width: MediaQuery.of(context).size.width,
         child: Row(
           children: [
